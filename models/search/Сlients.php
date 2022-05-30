@@ -4,12 +4,12 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\clients as clientsModel;
+use app\models\Clients as ClientsModel;
 
 /**
  * clients represents the model behind the search form of `app\models\clients`.
  */
-class clients extends clientsModel
+class Clients extends ClientsModel
 {
     /**
      * {@inheritdoc}
@@ -40,7 +40,7 @@ class clients extends clientsModel
      */
     public function search($params)
     {
-        $query = clientsModel::find();
+        $query = СlientsModel::find();
 
         // add conditions that should always apply here
 

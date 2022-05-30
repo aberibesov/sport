@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-use app\models\clients;
-use app\models\search\clients as clientsSearch;
+
+use app\models\Clients;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
+use app\models\search\Clients as ClientsSearch;
 
 /**
  * ClientsController implements the CRUD actions for clients model.
@@ -22,7 +23,7 @@ class ClientsController extends Controller
             parent::behaviors(),
             [
                 'verbs' => [
-                    'class' => VerbFilter::className(),
+                    'class' => VerbFilter::class,
                     'actions' => [
                         'delete' => ['POST'],
                     ],
@@ -38,7 +39,7 @@ class ClientsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new clientsSearch();
+        $searchModel = new ClientsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -67,7 +68,7 @@ class ClientsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new clients();
+        $model = new Clients();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -120,12 +121,12 @@ class ClientsController extends Controller
      * Finds the clients model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return clients the loaded model
+     * @return Clients the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = clients::findOne(['id' => $id])) !== null) {
+        if (($model = Clients::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
