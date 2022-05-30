@@ -51,6 +51,6 @@ class SubscriptionStatus extends \yii\db\ActiveRecord
      */
     public function getSales()
     {
-        return $this->hasMany(Sales::className(), ['status_id' => 'id']);
+        return $this->hasMany(Sales::class, ['status_id' => 'id']);
     }
 }

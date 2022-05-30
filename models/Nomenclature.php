@@ -51,6 +51,6 @@ class Nomenclature extends \yii\db\ActiveRecord
      */
     public function getInventoryInRooms()
     {
-        return $this->hasMany(InventoryInRoom::className(), ['nomenclature_id' => 'id']);
+        return $this->hasMany(InventoryInRoom::class, ['nomenclature_id' => 'id']);
     }
 }

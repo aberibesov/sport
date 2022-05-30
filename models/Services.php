@@ -51,6 +51,6 @@ class Services extends \yii\db\ActiveRecord
      */
     public function getSchedules()
     {
-        return $this->hasMany(Schedule::className(), ['service_id' => 'id']);
+        return $this->hasMany(Schedule::class, ['service_id' => 'id']);
     }
 }

@@ -34,8 +34,8 @@ class VisitLog extends \yii\db\ActiveRecord
             [['client_id'], 'required'],
             [['client_id', 'sale_id'], 'integer'],
             [['date_visit'], 'safe'],
-            [['sale_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sales::className(), 'targetAttribute' => ['sale_id' => 'id']],
-            [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::className(), 'targetAttribute' => ['client_id' => 'id']],
+            [['sale_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sales::class, 'targetAttribute' => ['sale_id' => 'id']],
+            [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
         ];
     }
 
@@ -59,7 +59,7 @@ class VisitLog extends \yii\db\ActiveRecord
      */
     public function getClient()
     {
-        return $this->hasOne(Clients::className(), ['id' => 'client_id']);
+        return $this->hasOne(Clients::class, ['id' => 'client_id']);
     }
 
     /**
@@ -69,6 +69,6 @@ class VisitLog extends \yii\db\ActiveRecord
      */
     public function getSale()
     {
-        return $this->hasOne(Sales::className(), ['id' => 'sale_id']);
+        return $this->hasOne(Sales::class, ['id' => 'sale_id']);
     }
 }

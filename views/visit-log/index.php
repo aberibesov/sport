@@ -1,9 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
+use kartik\grid\GridView;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\VisitLog */
@@ -14,29 +13,27 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="visit-log-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create Visit Log', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
+        'panel' => [
+            'type' => GridView::TYPE_DEFAULT,
+            'heading' => $this->title
+        ],
+        'panelPrefix' => 'box box-',
+        'panelHeadingTemplate' => '{title}<div class="clearfix"></div>',
+        'panelTemplate' => '{panelHeading}{items}',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'client_id',
             'sale_id',
             'date_visit',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, VisitLog $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'class' => ActionColumn::class
             ],
         ],
     ]); ?>

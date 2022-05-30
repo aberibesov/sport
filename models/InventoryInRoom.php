@@ -33,8 +33,8 @@ class InventoryInRoom extends \yii\db\ActiveRecord
         return [
             [['room_id', 'nomenclature_id'], 'required'],
             [['room_id', 'nomenclature_id', 'count'], 'integer'],
-            [['nomenclature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Nomenclature::className(), 'targetAttribute' => ['nomenclature_id' => 'id']],
-            [['room_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rooms::className(), 'targetAttribute' => ['room_id' => 'id']],
+            [['nomenclature_id'], 'exist', 'skipOnError' => true, 'targetClass' => Nomenclature::class, 'targetAttribute' => ['nomenclature_id' => 'id']],
+            [['room_id'], 'exist', 'skipOnError' => true, 'targetClass' => Rooms::class, 'targetAttribute' => ['room_id' => 'id']],
         ];
     }
 
@@ -58,7 +58,7 @@ class InventoryInRoom extends \yii\db\ActiveRecord
      */
     public function getNomenclature()
     {
-        return $this->hasOne(Nomenclature::className(), ['id' => 'nomenclature_id']);
+        return $this->hasOne(Nomenclature::class, ['id' => 'nomenclature_id']);
     }
 
     /**
@@ -68,6 +68,6 @@ class InventoryInRoom extends \yii\db\ActiveRecord
      */
     public function getRoom()
     {
-        return $this->hasOne(Rooms::className(), ['id' => 'room_id']);
+        return $this->hasOne(Rooms::class, ['id' => 'room_id']);
     }
 }

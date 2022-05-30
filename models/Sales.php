@@ -36,8 +36,8 @@ class Sales extends \yii\db\ActiveRecord
             [['client_id', 'subscription_id', 'status_id'], 'required'],
             [['client_id', 'subscription_id', 'status_id'], 'integer'],
             [['date'], 'safe'],
-            [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::className(), 'targetAttribute' => ['client_id' => 'id']],
-            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionStatus::className(), 'targetAttribute' => ['status_id' => 'id']],
+            [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionStatus::class, 'targetAttribute' => ['status_id' => 'id']],
         ];
     }
 
@@ -62,7 +62,7 @@ class Sales extends \yii\db\ActiveRecord
      */
     public function getClient()
     {
-        return $this->hasOne(Clients::className(), ['id' => 'client_id']);
+        return $this->hasOne(Clients::class, ['id' => 'client_id']);
     }
 
     /**
@@ -72,7 +72,7 @@ class Sales extends \yii\db\ActiveRecord
      */
     public function getStatus()
     {
-        return $this->hasOne(SubscriptionStatus::className(), ['id' => 'status_id']);
+        return $this->hasOne(SubscriptionStatus::class, ['id' => 'status_id']);
     }
 
     /**
@@ -82,6 +82,6 @@ class Sales extends \yii\db\ActiveRecord
      */
     public function getVisitLogs()
     {
-        return $this->hasMany(VisitLog::className(), ['sale_id' => 'id']);
+        return $this->hasMany(VisitLog::class, ['sale_id' => 'id']);
     }
 }

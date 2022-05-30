@@ -1,9 +1,9 @@
 <?php
 
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\Html;
+use kartik\grid\GridView;
 use yii\grid\ActionColumn;
-use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\SubscriptionStatus */
@@ -14,27 +14,25 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="subscription-status-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a('Create Subscription Status', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
     <?= GridView::widget([
+        'panel' => [
+            'type' => GridView::TYPE_DEFAULT,
+            'heading' => $this->title
+        ],
+        'panelPrefix' => 'box box-',
+        'panelHeadingTemplate' => '{title}<div class="clearfix"></div>',
+        'panelTemplate' => '{panelHeading}{items}',
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
             [
-                'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, SubscriptionStatus $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'class' => ActionColumn::class
             ],
         ],
     ]); ?>

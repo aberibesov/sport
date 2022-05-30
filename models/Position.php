@@ -53,6 +53,6 @@ class Position extends \yii\db\ActiveRecord
      */
     public function getUsers()
     {
-        return $this->hasMany(Users::className(), ['position_id' => 'id']);
+        return $this->hasMany(Users::class, ['position_id' => 'id']);
     }
 }

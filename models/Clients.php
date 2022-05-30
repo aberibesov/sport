@@ -70,7 +70,7 @@ class Clients extends \yii\db\ActiveRecord
      */
     public function getSales()
     {
-        return $this->hasMany(Sales::className(), ['client_id' => 'id']);
+        return $this->hasMany(Sales::class, ['client_id' => 'id']);
     }
 
     /**
@@ -80,6 +80,6 @@ class Clients extends \yii\db\ActiveRecord
      */
     public function getVisitLogs()
     {
-        return $this->hasMany(VisitLog::className(), ['client_id' => 'id']);
+        return $this->hasMany(VisitLog::class, ['client_id' => 'id']);
     }
 }

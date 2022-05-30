@@ -52,7 +52,7 @@ class Rooms extends \yii\db\ActiveRecord
      */
     public function getInventoryInRooms()
     {
-        return $this->hasMany(InventoryInRoom::className(), ['room_id' => 'id']);
+        return $this->hasMany(InventoryInRoom::class, ['room_id' => 'id']);
     }
 
     /**
@@ -62,6 +62,6 @@ class Rooms extends \yii\db\ActiveRecord
      */
     public function getSchedules()
     {
-        return $this->hasMany(Schedule::className(), ['room_id' => 'id']);
+        return $this->hasMany(Schedule::class, ['room_id' => 'id']);
     }
 }

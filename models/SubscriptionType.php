@@ -51,6 +51,6 @@ class SubscriptionType extends \yii\db\ActiveRecord
      */
     public function getSubscriptions()
     {
-        return $this->hasMany(Subscription::className(), ['type_id' => 'id']);
+        return $this->hasMany(Subscription::class, ['type_id' => 'id']);
     }
 }

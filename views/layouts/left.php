@@ -4,38 +4,28 @@
 
         <?= dmstr\widgets\Menu::widget(
             [
-                'options' => ['class' => 'sidebar-menu tree', 'data-widget'=> 'tree'],
+                'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
-                    ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
-                    ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
+                    ['label' => 'Сотрудники', 'icon' => 'file-code-o', 'url' => ['/users']],
+                    ['label' => 'Клиенты', 'icon' => 'file-code-o', 'url' => ['/clients']],
+                    ['label' => 'Расписание', 'icon' => 'file-code-o', 'url' => ['/subscription']],
+                    ['label' => 'Активные абонементы', 'icon' => 'file-code-o', 'url' => ['/sales']],
+                    ['label' => 'Журнал посещений', 'icon' => 'file-code-o', 'url' => ['/visit-log']],
+                    ['label' => 'Инвентарь', 'icon' => 'dashboard', 'url' => ['/nomenclature']],
+                    ['label' => 'Залы', 'icon' => 'file-code-o', 'url' => ['/rooms']],
                     [
-                        'label' => 'Some tools',
-                        'icon' => 'share',
+                        'label' => 'Справочники',
+                        'icon' => 'circle-o',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],
-                            ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'],],
-                            [
-                                'label' => 'Level One',
-                                'icon' => 'circle-o',
-                                'url' => '#',
-                                'items' => [
-                                    ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                                    [
-                                        'label' => 'Level Two',
-                                        'icon' => 'circle-o',
-                                        'url' => '#',
-                                        'items' => [
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                            ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
+                            ['label' => 'Тип абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-type'],],
+                            ['label' => 'Статус абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-status'],],
+                            ['label' => 'Список услуг', 'icon' => 'circle-o', 'url' => ['/serveces'],],
+                            ['label' => 'Должности', 'icon' => 'circle-o', 'url' => '/position',],
+                        ]
                     ],
-                ],
+                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]
+                ]
             ]
         ) ?>
 

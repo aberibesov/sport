@@ -34,7 +34,7 @@ class Subscription extends \yii\db\ActiveRecord
         return [
             [['type_id', 'price'], 'required'],
             [['type_id', 'price', 'mount_amount', 'day_amount', 'number_of_visits'], 'integer'],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionType::className(), 'targetAttribute' => ['type_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionType::class, 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
 
@@ -60,6 +60,6 @@ class Subscription extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(SubscriptionType::className(), ['id' => 'type_id']);
+        return $this->hasOne(SubscriptionType::class, ['id' => 'type_id']);
     }
 }
