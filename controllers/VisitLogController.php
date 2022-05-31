@@ -37,7 +37,6 @@ class VisitLogController extends Controller
                         ]
                     ]
                 ]
-
             ]
         );
     }
