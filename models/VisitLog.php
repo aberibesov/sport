@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "visit_log".
@@ -15,7 +16,7 @@ use Yii;
  * @property Clients $client
  * @property Sales $sale
  */
-class VisitLog extends \yii\db\ActiveRecord
+class VisitLog extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -46,16 +47,16 @@ class VisitLog extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
-            'sale_id' => 'Sale ID',
-            'date_visit' => 'Date Visit',
+            'client_id' => 'Клиент',
+            'sale_id' => 'Продажа',
+            'date_visit' => 'Дата визита',
         ];
     }
 
     /**
      * Gets query for [[Client]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getClient()
     {
@@ -65,7 +66,7 @@ class VisitLog extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Sale]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSale()
     {

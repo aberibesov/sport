@@ -1,25 +1,44 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\Html;
+use app\models\Clients;
+use kartik\form\ActiveForm;
+use kartik\datetime\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\VisitLog */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form ActiveForm */
 ?>
 
 <div class="visit-log-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'client_id')->textInput() ?>
+    <?= $form->field($model, 'client_id', [
+        'addon' => [
+            'append' => [
+                'content' => Html::a(Html::icon('plus'), ['/clients'], ['class' => 'btn btn-success category-create']),
+                'asButton' => true
+            ]
+        ]])->dropDownList(Clients::getList(), ['prompt' => 'Выберите клиента']) ?>
 
-    <?= $form->field($model, 'sale_id')->textInput() ?>
+    <?= $form->field($model, 'sale_id', [
+        'addon' => [
+            'append' => [
+                'content' => Html::a(Html::icon('plus'), ['/sales'], ['class' => 'btn btn-success category-create']),
+                'asButton' => true
+            ]
+        ]])->textInput() ?>
 
-    <?= $form->field($model, 'date_visit')->textInput() ?>
+    <?= $form->field($model, 'date_visit')->widget(DateTimePicker::class, [
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd hh:ii:ss',
+            'todayBtn' => true
+        ]
+    ]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

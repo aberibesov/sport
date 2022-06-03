@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "subscription_status".
@@ -12,7 +13,7 @@ use Yii;
  *
  * @property Sales[] $sales
  */
-class SubscriptionStatus extends \yii\db\ActiveRecord
+class SubscriptionStatus extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,17 +41,25 @@ class SubscriptionStatus extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Статус',
         ];
     }
 
     /**
      * Gets query for [[Sales]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSales()
     {
         return $this->hasMany(Sales::class, ['status_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

@@ -1,18 +1,25 @@
 <?php
 
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\Html;
+use kartik\form\ActiveForm;
+use app\models\SubscriptionType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Subscription */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form ActiveForm */
 ?>
 
 <div class="subscription-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'type_id')->textInput() ?>
+    <?= $form->field($model, 'type_id',[
+        'addon' => [
+            'append' => [
+                'content' => Html::a(Html::icon('plus'), ['/subscription-type'], ['class' => 'btn btn-success category-create']),
+                'asButton' => true
+            ]
+        ]])->dropDownList(SubscriptionType::getList(), ['prompt' => 'Выберите тип абонемента']) ?>
 
     <?= $form->field($model, 'price')->textInput() ?>
 
@@ -23,7 +30,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'number_of_visits')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

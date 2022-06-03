@@ -1,24 +1,31 @@
 <?php
 
+use app\models\Rooms;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
+use app\models\Nomenclature;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\InventoryInRoom */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Inventory In Rooms', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Инвентарь в залах', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
+
+$rooms = Rooms::getList();
+$nomenclature = Nomenclature::getList();
 ?>
 <div class="inventory-in-room-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -28,8 +35,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'room_id',
-            'nomenclature_id',
+            [
+                'attribute' => 'room_id',
+                'filter' => $rooms,
+                'value' => static function ($model) use ($rooms) {
+                    return ArrayHelper::getValue($rooms, $model->room_id);
+                }
+            ],
+            [
+                'attribute' => 'nomenclature_id',
+                'filter' => $nomenclature,
+                'value' => static function ($model) use ($nomenclature) {
+                    return ArrayHelper::getValue($nomenclature, $model->nomenclature_id);
+                }
+            ],
             'count',
         ],
     ]) ?>

@@ -1,21 +1,24 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
+use yii\helpers\ArrayHelper;
+use app\models\SubscriptionType;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\Subscription */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Subscriptions';
+$this->title = 'Абонементы';
 $this->params['breadcrumbs'][] = $this->title;
+
+$subscriptionType = SubscriptionType::getList();
 ?>
 <div class="subscription-index">
 
     <p>
-        <?= Html::a('Create Subscription', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать абонементы', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -23,6 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'type' => GridView::TYPE_DEFAULT,
             'heading' => $this->title
         ],
+        'pjax' => true,
         'panelPrefix' => 'box box-',
         'panelHeadingTemplate' => '{title}<div class="clearfix"></div>',
         'panelTemplate' => '{panelHeading}{items}',
@@ -30,7 +34,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'type_id',
+            [
+                'attribute' => 'type_id',
+                'filter' => $subscriptionType,
+                'value' => static function ($model) use ($subscriptionType) {
+                    return ArrayHelper::getValue($subscriptionType, $model->type_id);
+                }
+            ],
             'price',
             'mount_amount',
             'day_amount',

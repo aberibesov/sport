@@ -1,24 +1,29 @@
 <?php
 
+use app\models\Users;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Users */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
+
+$usersList = Users::getList();
 ?>
 <div class="users-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -29,19 +34,33 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
             'email:email',
             'name',
             'address',
-            'date_of_birth',
-            'status',
-            'position_id',
-            'created_by',
-            'created_at',
-            'updated_by',
-            'updated_at',
+            'date_of_birth:date',
+            [
+                'attribute' => 'status',
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue(Users::STATUSES, $model->status);
+                }
+            ],
+            'position.title',
+            [
+                'attribute' => 'created_by',
+                'filter' => $usersList,
+                'value' => static function ($model) use ($usersList) {
+                    return ArrayHelper::getValue($usersList, $model->created_by);
+                }
+            ],
+            'created_at:datetime',
+            [
+                'attribute' => 'updated_by',
+                'filter' => $usersList,
+                'value' => static function ($model) use ($usersList) {
+                    return ArrayHelper::getValue($usersList, $model->updated_by);
+                }
+            ],
+            'updated_at:datetime',
         ],
     ]) ?>
 

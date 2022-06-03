@@ -3,23 +3,24 @@
 use yii\helpers\Html;
 use yii\web\YiiAsset;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\clients */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Clients', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Клиенты', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
 <div class="clients-view">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -30,13 +31,19 @@ YiiAsset::register($this);
         'attributes' => [
             'id',
             'name',
-            'date_of_birth',
+            'date_of_birth:date',
             'address',
             'passport_series',
             'passport_number',
             'issued_by',
-            'issued_date',
-            'sex',
+            'issued_date:date',
+            [
+                'attribute' => 'sex',
+                'filter' => $model::SEX,
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue($model::SEX, $model->sex);
+                }
+            ],
             'phone'
         ]
     ]) ?>

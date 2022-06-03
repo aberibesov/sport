@@ -41,8 +41,8 @@ class Position extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'salary' => 'Salary',
+            'title' => 'Должность',
+            'salary' => 'Оклад',
         ];
     }
 
@@ -54,5 +54,13 @@ class Position extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(Users::class, ['position_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('title')->indexBy('id')->column();
     }
 }

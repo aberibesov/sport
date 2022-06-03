@@ -1,12 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Services */
 
-$this->title = 'Create Services';
-$this->params['breadcrumbs'][] = ['label' => 'Services', 'url' => ['index']];
+$this->title = 'Создать занятие';
+$this->params['breadcrumbs'][] = ['label' => 'Занятия', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="services-create">

@@ -56,7 +56,7 @@ class m220522_122009_create_main_structure extends Migration
             'date_of_birth' => $this->date(),
             'address' => $this->string()->notNull(),
             'passport_series' => $this->smallInteger()->notNull(),
-            'passport_number' => $this->smallInteger()->notNull(),
+            'passport_number' => $this->integer()->notNull(),
             'issued_by' => $this->string()->notNull(),
             'issued_date' => $this->date(),
             'sex' => $this->tinyInteger()->notNull()->unsigned(),

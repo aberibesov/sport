@@ -1,12 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Nomenclature */
 
-$this->title = 'Create Nomenclature';
-$this->params['breadcrumbs'][] = ['label' => 'Nomenclatures', 'url' => ['index']];
+$this->title = 'Создать инвентарь';
+$this->params['breadcrumbs'][] = ['label' => 'Инвентарь', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="nomenclature-create">

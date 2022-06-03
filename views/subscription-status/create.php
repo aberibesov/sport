@@ -1,12 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\SubscriptionStatus */
 
-$this->title = 'Create Subscription Status';
-$this->params['breadcrumbs'][] = ['label' => 'Subscription Statuses', 'url' => ['index']];
+$this->title = 'Создать статус абонемента';
+$this->params['breadcrumbs'][] = ['label' => 'Статус абонемента', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="subscription-status-create">

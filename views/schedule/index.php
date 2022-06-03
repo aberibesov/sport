@@ -1,21 +1,20 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\SubscriptionStatus */
+/* @var $searchModel app\models\search\Schedule */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Статус абонемента';
+$this->title = 'Расписание';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="subscription-status-index">
+<div class="schedule-index">
 
     <p>
-        <?= Html::a('Создать статус абонемента', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Schedule', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -31,7 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'name',
+            'date_begin',
+            'date_end',
+            'user_id',
+            'service_id',
+            'room_id',
             [
                 'class' => ActionColumn::class
             ],

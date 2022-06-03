@@ -1,12 +1,10 @@
 <?php
 
-use yii\helpers\Html;
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Rooms */
 
-$this->title = 'Create Rooms';
-$this->params['breadcrumbs'][] = ['label' => 'Rooms', 'url' => ['index']];
+$this->title = 'Создать зал';
+$this->params['breadcrumbs'][] = ['label' => 'Залы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="rooms-create">

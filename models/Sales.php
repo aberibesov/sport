@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "sales".
@@ -17,7 +18,7 @@ use Yii;
  * @property SubscriptionStatus $status
  * @property VisitLog[] $visitLogs
  */
-class Sales extends \yii\db\ActiveRecord
+class Sales extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -48,17 +49,17 @@ class Sales extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
-            'subscription_id' => 'Subscription ID',
-            'status_id' => 'Status ID',
-            'date' => 'Date',
+            'client_id' => 'Клиент',
+            'subscription_id' => 'Номер абонемента',
+            'status_id' => 'Статус',
+            'date' => 'Дата продажи',
         ];
     }
 
     /**
      * Gets query for [[Client]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getClient()
     {
@@ -68,7 +69,7 @@ class Sales extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Status]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getStatus()
     {
@@ -78,10 +79,18 @@ class Sales extends \yii\db\ActiveRecord
     /**
      * Gets query for [[VisitLogs]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVisitLogs()
     {
         return $this->hasMany(VisitLog::class, ['sale_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

@@ -8,20 +8,22 @@
                 'items' => [
                     ['label' => 'Сотрудники', 'icon' => 'file-code-o', 'url' => ['/users']],
                     ['label' => 'Клиенты', 'icon' => 'file-code-o', 'url' => ['/clients']],
-                    ['label' => 'Расписание', 'icon' => 'file-code-o', 'url' => ['/subscription']],
-                    ['label' => 'Активные абонементы', 'icon' => 'file-code-o', 'url' => ['/sales']],
+                    ['label' => 'Расписание', 'icon' => 'file-code-o', 'url' => ['/schedule']],
+                    ['label' => 'Продажи', 'icon' => 'file-code-o', 'url' => ['/sales']],
                     ['label' => 'Журнал посещений', 'icon' => 'file-code-o', 'url' => ['/visit-log']],
-                    ['label' => 'Инвентарь', 'icon' => 'dashboard', 'url' => ['/nomenclature']],
-                    ['label' => 'Залы', 'icon' => 'file-code-o', 'url' => ['/rooms']],
+                    ['label' => 'Инвентарь в залах', 'icon' => 'file-code-o', 'url' => ['/inventory-in-room']],
                     [
                         'label' => 'Справочники',
                         'icon' => 'circle-o',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'Тип абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-type'],],
-                            ['label' => 'Статус абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-status'],],
-                            ['label' => 'Список услуг', 'icon' => 'circle-o', 'url' => ['/serveces'],],
-                            ['label' => 'Должности', 'icon' => 'circle-o', 'url' => '/position',],
+                            ['label' => 'Инвентарь', 'icon' => 'dashboard', 'url' => ['/nomenclature']],
+                            ['label' => 'Залы', 'icon' => 'file-code-o', 'url' => ['/rooms']],
+                            ['label' => 'Тип абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-type']],
+                            ['label' => 'Статус абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-status']],
+                            ['label' => 'Список услуг', 'icon' => 'circle-o', 'url' => ['/services']],
+                            ['label' => 'Должности', 'icon' => 'circle-o', 'url' => '/position'],
+                            ['label' => 'Абонементы', 'icon' => 'file-code-o', 'url' => ['/subscription']]
                         ]
                     ],
                     ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest]

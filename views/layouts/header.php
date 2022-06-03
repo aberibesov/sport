@@ -33,7 +33,7 @@ use yii\helpers\Html;
                                  alt="User Image"/>
 
                             <p>
-                                Alexander Pierce - Web Developer
+                                <?= Yii::$app->user->identity->name ?> - Web Developer
                                 <small>Member since Nov. 2012</small>
                             </p>
                         </li>

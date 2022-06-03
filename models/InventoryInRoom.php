@@ -45,9 +45,9 @@ class InventoryInRoom extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'room_id' => 'Room ID',
-            'nomenclature_id' => 'Nomenclature ID',
-            'count' => 'Count',
+            'room_id' => 'Зал',
+            'nomenclature_id' => 'Инвентарь',
+            'count' => 'Кол-во',
         ];
     }
 

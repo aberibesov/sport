@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "clients".
@@ -21,8 +22,13 @@ use Yii;
  * @property Sales[] $sales
  * @property VisitLog[] $visitLogs
  */
-class Clients extends \yii\db\ActiveRecord
+class Clients extends ActiveRecord
 {
+    const SEX = [
+        0 => 'мужской',
+        1 => 'женский',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -51,22 +57,22 @@ class Clients extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'date_of_birth' => 'Date Of Birth',
-            'address' => 'Address',
-            'passport_series' => 'Passport Series',
-            'passport_number' => 'Passport Number',
-            'issued_by' => 'Issued By',
-            'issued_date' => 'Issued Date',
-            'sex' => 'Sex',
-            'phone' => 'Phone',
+            'name' => 'ФИО',
+            'date_of_birth' => 'Дата рождения',
+            'address' => 'Адрес',
+            'passport_series' => 'Серия',
+            'passport_number' => 'Номер',
+            'issued_by' => 'Выдан',
+            'issued_date' => 'Дата выдачи',
+            'sex' => 'Пол',
+            'phone' => 'Телефон',
         ];
     }
 
     /**
      * Gets query for [[Sales]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSales()
     {
@@ -76,10 +82,18 @@ class Clients extends \yii\db\ActiveRecord
     /**
      * Gets query for [[VisitLogs]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getVisitLogs()
     {
         return $this->hasMany(VisitLog::class, ['client_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

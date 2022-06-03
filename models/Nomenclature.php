@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "nomenclature".
@@ -12,7 +13,7 @@ use Yii;
  *
  * @property InventoryInRoom[] $inventoryInRooms
  */
-class Nomenclature extends \yii\db\ActiveRecord
+class Nomenclature extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -40,17 +41,25 @@ class Nomenclature extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Наименование',
         ];
     }
 
     /**
      * Gets query for [[InventoryInRooms]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getInventoryInRooms()
     {
         return $this->hasMany(InventoryInRoom::class, ['nomenclature_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

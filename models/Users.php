@@ -37,6 +37,11 @@ class Users extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 1;
 
+    const STATUSES = [
+        self::STATUS_DELETED => 'Удален',
+        self::STATUS_ACTIVE => 'Активен',
+    ];
+
     /**
      * {@inheritdoc}
      */
@@ -72,7 +77,7 @@ class Users extends ActiveRecord implements IdentityInterface
             [['password_reset_token'], 'unique'],
             [['position_id'], 'exist', 'skipOnError' => true, 'targetClass' => Position::class, 'targetAttribute' => ['position_id' => 'id']],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]]
+            ['status', 'in', 'range' => array_keys(self::STATUSES)]
         ];
     }
 
@@ -83,20 +88,20 @@ class Users extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => 'ID',
-            'username' => 'Username',
+            'username' => 'Логин',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'name' => 'Name',
-            'address' => 'Address',
-            'date_of_birth' => 'Date Of Birth',
-            'status' => 'Status',
-            'position_id' => 'Position ID',
-            'created_by' => 'Created By',
-            'created_at' => 'Created At',
-            'updated_by' => 'Updated By',
-            'updated_at' => 'Updated At',
+            'name' => 'ФИО',
+            'address' => 'Адрес',
+            'date_of_birth' => 'Дата рождения',
+            'status' => 'Статус',
+            'position_id' => 'Должность',
+            'created_by' => 'Создано кем',
+            'created_at' => 'Создано дата',
+            'updated_by' => 'Изменено кем',
+            'updated_at' => 'Изменено дата',
         ];
     }
 
@@ -108,6 +113,22 @@ class Users extends ActiveRecord implements IdentityInterface
     public function getPosition()
     {
         return $this->hasOne(Position::class, ['id' => 'position_id']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getCreated()
+    {
+        return $this->hasOne(Users::class, ['id' => 'created_by']);
+    }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getUpdated()
+    {
+        return $this->hasOne(Users::class, ['id' => 'updated_by']);
     }
 
     /**
@@ -196,5 +217,13 @@ class Users extends ActiveRecord implements IdentityInterface
     public function generateAuthKey()
     {
         $this->auth_key = Yii::$app->security->generateRandomString();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

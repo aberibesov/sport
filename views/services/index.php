@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
@@ -9,13 +8,13 @@ use yii\grid\ActionColumn;
 /* @var $searchModel app\models\search\Services */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Services';
+$this->title = 'Занятия';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="services-index">
 
     <p>
-        <?= Html::a('Create Services', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать занятие', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -23,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'type' => GridView::TYPE_DEFAULT,
             'heading' => $this->title
         ],
+        'pjax' => true,
         'panelPrefix' => 'box box-',
         'panelHeadingTemplate' => '{title}<div class="clearfix"></div>',
         'panelTemplate' => '{panelHeading}{items}',

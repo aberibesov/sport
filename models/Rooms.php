@@ -2,7 +2,8 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "rooms".
@@ -13,7 +14,7 @@ use Yii;
  * @property InventoryInRoom[] $inventoryInRooms
  * @property Schedule[] $schedules
  */
-class Rooms extends \yii\db\ActiveRecord
+class Rooms extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -41,14 +42,14 @@ class Rooms extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Зал',
         ];
     }
 
     /**
      * Gets query for [[InventoryInRooms]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getInventoryInRooms()
     {
@@ -58,10 +59,18 @@ class Rooms extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Schedules]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getSchedules()
     {
         return $this->hasMany(Schedule::class, ['room_id' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

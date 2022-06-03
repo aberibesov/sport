@@ -45,11 +45,11 @@ class Subscription extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'type_id' => 'Type ID',
-            'price' => 'Price',
-            'mount_amount' => 'Mount Amount',
-            'day_amount' => 'Day Amount',
-            'number_of_visits' => 'Number Of Visits',
+            'type_id' => 'Тип',
+            'price' => 'Цена',
+            'mount_amount' => 'Месяц',
+            'day_amount' => 'День',
+            'number_of_visits' => 'Визиты',
         ];
     }
 

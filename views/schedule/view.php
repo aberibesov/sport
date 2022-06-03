@@ -5,18 +5,18 @@ use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Sales */
+/* @var $model app\models\Schedule */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Продажи', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Расписание', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
-<div class="sales-view">
+<div class="schedule-view">
 
     <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы уверены что хотите удалить?',
@@ -29,10 +29,11 @@ YiiAsset::register($this);
         'model' => $model,
         'attributes' => [
             'id',
-            'client_id',
-            'subscription_id',
-            'status_id',
-            'date',
+            'date_begin',
+            'date_end',
+            'user_id',
+            'service_id',
+            'room_id',
         ],
     ]) ?>
 

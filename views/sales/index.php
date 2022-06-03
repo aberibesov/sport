@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Url;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
@@ -9,13 +8,13 @@ use yii\grid\ActionColumn;
 /* @var $searchModel app\models\search\Sales */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Sales';
+$this->title = 'Продажи';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sales-index">
 
     <p>
-        <?= Html::a('Create Sales', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать продажу', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -23,6 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'type' => GridView::TYPE_DEFAULT,
             'heading' => $this->title
         ],
+        'pjax' => true,
         'panelPrefix' => 'box box-',
         'panelHeadingTemplate' => '{title}<div class="clearfix"></div>',
         'panelTemplate' => '{panelHeading}{items}',
@@ -37,10 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'status_id',
             'date',
             [
-                'class' => ActionColumn::class,
-                'urlCreator' => function ($action, Sales $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                'class' => ActionColumn::class
             ],
         ],
     ]); ?>

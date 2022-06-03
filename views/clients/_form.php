@@ -1,10 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\date\DatePicker;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\clients */
+/* @var $model app\models\Clients */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -14,7 +15,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_of_birth')->textInput() ?>
+    <?= $form->field($model, 'date_of_birth')->widget(DatePicker::class, [
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd']
+    ]) ?>
 
     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
@@ -24,14 +28,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'issued_by')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'issued_date')->textInput() ?>
+    <?= $form->field($model, 'issued_date')->widget(DatePicker::class, [
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd']
+    ])  ?>
 
-    <?= $form->field($model, 'sex')->textInput() ?>
+    <?= $form->field($model, 'sex')->dropDownList($model::SEX, ['prompt' => 'Выберите пол']) ?>
 
     <?= $form->field($model, 'phone')->textInput() ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
