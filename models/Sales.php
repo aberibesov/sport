@@ -50,7 +50,7 @@ class Sales extends ActiveRecord
         return [
             'id' => 'ID',
             'client_id' => 'Клиент',
-            'subscription_id' => 'Номер абонемента',
+            'subscription_id' => 'Абонемент',
             'status_id' => 'Статус',
             'date' => 'Дата продажи',
         ];

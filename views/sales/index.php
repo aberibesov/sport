@@ -1,8 +1,12 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Clients;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
+use app\models\Subscription;
+use yii\helpers\ArrayHelper;
+use app\models\SubscriptionStatus;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\Sales */
@@ -10,6 +14,10 @@ use yii\grid\ActionColumn;
 
 $this->title = 'Продажи';
 $this->params['breadcrumbs'][] = $this->title;
+
+$subscription = Subscription::getList();
+$statuses = SubscriptionStatus::getList();
+$clients = Clients::getList();
 ?>
 <div class="sales-index">
 
@@ -32,10 +40,29 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'client_id',
-            'subscription_id',
-            'status_id',
-            'date',
+            [
+                'attribute' => 'client_id',
+                'filter' => $clients,
+                'value' => static function ($model) use ($clients) {
+                    return ArrayHelper::getValue($clients, $model->client_id);
+                }
+            ],
+            [
+                'attribute' => 'subscription_id',
+                'filter' => $subscription,
+                'value' => static function ($model) use ($subscription) {
+                    return ArrayHelper::getValue($subscription, $model->subscription_id);
+                }
+            ],
+            [
+                'attribute' => 'status_id',
+                'filter' => $statuses,
+                'value' => static function ($model) use ($statuses) {
+                    return ArrayHelper::getValue($statuses, $model->status_id);
+                }
+            ],
+
+            'date:datetime',
             [
                 'class' => ActionColumn::class
             ],

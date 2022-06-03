@@ -1,8 +1,12 @@
 <?php
 
+use app\models\Rooms;
+use app\models\Users;
 use yii\helpers\Html;
+use app\models\Services;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\Schedule */
@@ -10,11 +14,15 @@ use yii\grid\ActionColumn;
 
 $this->title = 'Расписание';
 $this->params['breadcrumbs'][] = $this->title;
+
+$users = Users::getList();
+$rooms = Rooms::getList();
+$services = Services::getList();
 ?>
 <div class="schedule-index">
 
     <p>
-        <?= Html::a('Create Schedule', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать расписание', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -30,11 +38,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             'id',
-            'date_begin',
-            'date_end',
-            'user_id',
-            'service_id',
-            'room_id',
+            'date_begin:date',
+            'date_end:date',
+            [
+                'attribute' => 'user_id',
+                'filter' => $users,
+                'value' => static function ($model) use ($users) {
+                    return ArrayHelper::getValue($users, $model->user_id);
+                }
+            ],
+            [
+                'attribute' => 'service_id',
+                'filter' => $services,
+                'value' => static function ($model) use ($services) {
+                    return ArrayHelper::getValue($services, $model->user_id);
+                }
+            ],
+            [
+                'attribute' => 'room_id',
+                'filter' => $rooms,
+                'value' => static function ($model) use ($rooms) {
+                    return ArrayHelper::getValue($rooms, $model->user_id);
+                }
+            ],
             [
                 'class' => ActionColumn::class
             ],

@@ -2,12 +2,14 @@
 
 namespace app\models;
 
-use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "subscription".
  *
  * @property int $id
+ * @property string $name
  * @property int $type_id
  * @property int $price
  * @property int|null $mount_amount
@@ -16,7 +18,7 @@ use Yii;
  *
  * @property SubscriptionType $type
  */
-class Subscription extends \yii\db\ActiveRecord
+class Subscription extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -56,10 +58,18 @@ class Subscription extends \yii\db\ActiveRecord
     /**
      * Gets query for [[Type]].
      *
-     * @return \yii\db\ActiveQuery
+     * @return ActiveQuery
      */
     public function getType()
     {
         return $this->hasOne(SubscriptionType::class, ['id' => 'type_id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getList()
+    {
+        return self::find()->select('name')->indexBy('id')->column();
     }
 }

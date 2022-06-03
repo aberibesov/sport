@@ -32,7 +32,7 @@ class VisitLog extends ActiveRecord
     public function rules()
     {
         return [
-            [['client_id'], 'required'],
+            [['client_id', 'sale_id', 'date_visit'], 'required'],
             [['client_id', 'sale_id'], 'integer'],
             [['date_visit'], 'safe'],
             [['sale_id'], 'exist', 'skipOnError' => true, 'targetClass' => Sales::class, 'targetAttribute' => ['sale_id' => 'id']],

@@ -34,6 +34,7 @@ $subscriptionType = SubscriptionType::getList();
         'filterModel' => $searchModel,
         'columns' => [
             'id',
+            'name',
             [
                 'attribute' => 'type_id',
                 'filter' => $subscriptionType,

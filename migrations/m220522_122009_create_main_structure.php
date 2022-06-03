@@ -75,6 +75,7 @@ class m220522_122009_create_main_structure extends Migration
 
         $this->createTable('{{%subscription}}', [
             'id' => $this->primaryKey(),
+            'name' => $this->string()->notNull(),
             'type_id' => $this->integer()->notNull(),
             'price' => $this->integer()->notNull(),
             'mount_amount' => $this->tinyInteger()->unsigned(),

@@ -13,6 +13,8 @@ use app\models\SubscriptionType;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'name')->textInput() ?>
+
     <?= $form->field($model, 'type_id',[
         'addon' => [
             'append' => [
