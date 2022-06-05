@@ -37,8 +37,6 @@ $clients = Clients::getList();
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             [
                 'attribute' => 'client_id',

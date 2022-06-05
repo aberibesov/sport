@@ -34,7 +34,8 @@ class Subscription extends ActiveRecord
     public function rules()
     {
         return [
-            [['type_id', 'price'], 'required'],
+            [['type_id', 'price', 'name'], 'required'],
+            ['name', 'string'],
             [['type_id', 'price', 'mount_amount', 'day_amount', 'number_of_visits'], 'integer'],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => SubscriptionType::class, 'targetAttribute' => ['type_id' => 'id']],
         ];
@@ -47,6 +48,7 @@ class Subscription extends ActiveRecord
     {
         return [
             'id' => 'ID',
+            'name' => 'Название',
             'type_id' => 'Тип',
             'price' => 'Цена',
             'mount_amount' => 'Месяц',

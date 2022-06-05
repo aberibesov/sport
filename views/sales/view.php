@@ -2,7 +2,11 @@
 
 use yii\helpers\Html;
 use yii\web\YiiAsset;
+use app\models\Clients;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use app\models\Subscription;
+use app\models\SubscriptionStatus;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Sales */
@@ -29,11 +33,25 @@ YiiAsset::register($this);
         'model' => $model,
         'attributes' => [
             'id',
-            'client_id',
-            'subscription_id',
-            'status_id',
-            'date',
+            [
+                'attribute' => 'client_id',
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue(Clients::getList(), $model->client_id);
+                }
+            ],
+            [
+                'attribute' => 'subscription_id',
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue(Subscription::getList(), $model->subscription_id);
+                }
+            ],
+            [
+                'attribute' => 'status_id',
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue(SubscriptionStatus::getList(), $model->status_id);
+                }
+            ],
+            'date:datetime',
         ],
     ]) ?>
-
 </div>

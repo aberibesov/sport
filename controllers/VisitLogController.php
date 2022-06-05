@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
-use app\models\VisitLog;
-use app\models\search\VisitLog as VisitLogSearch;
-use yii\filters\AccessControl;
+use app\models\Sales;
+use yii\web\Response;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\VisitLog;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+use app\models\search\VisitLog as VisitLogSearch;
 
 /**
  * VisitLogController implements the CRUD actions for VisitLog model.
@@ -73,15 +75,21 @@ class VisitLogController extends Controller
     /**
      * Creates a new VisitLog model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
         $model = new VisitLog();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->client_id = Sales::findOne($model->sale_id)->client_id;
+
+                if ($model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    $model->addError('sale_id', $model->getFirstError());
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -96,7 +104,7 @@ class VisitLogController extends Controller
      * Updates an existing VisitLog model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -116,7 +124,7 @@ class VisitLogController extends Controller
      * Deletes an existing VisitLog model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)

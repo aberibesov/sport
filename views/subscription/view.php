@@ -1,7 +1,10 @@
 <?php
 
 use yii\helpers\Html;
+use yii\web\YiiAsset;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
+use app\models\SubscriptionType;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Subscription */
@@ -9,7 +12,7 @@ use yii\widgets\DetailView;
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Абонементы', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+YiiAsset::register($this);
 ?>
 <div class="subscription-view">
 
@@ -29,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'type_id',
+            [
+                'attribute' => 'type_id',
+                'value' => static function ($model) {
+                    return ArrayHelper::getValue(SubscriptionType::getList(), $model->type_id);
+                }
+            ],
             'price',
             'mount_amount',
             'day_amount',

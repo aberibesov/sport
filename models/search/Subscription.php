@@ -18,6 +18,7 @@ class Subscription extends SubscriptionModel
     {
         return [
             [['id', 'type_id', 'price', 'mount_amount', 'day_amount', 'number_of_visits'], 'integer'],
+            ['name', 'string']
         ];
     }
 
@@ -58,6 +59,7 @@ class Subscription extends SubscriptionModel
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'name' => $this->name,
             'type_id' => $this->type_id,
             'price' => $this->price,
             'mount_amount' => $this->mount_amount,

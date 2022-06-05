@@ -2,12 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\Subscription;
-use app\models\search\Subscription as SubscriptionSearch;
-use yii\filters\AccessControl;
+use yii\web\Response;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Subscription;
+use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+use app\models\search\Subscription as SubscriptionSearch;
 
 /**
  * SubscriptionController implements the CRUD actions for Subscription model.
@@ -73,7 +74,7 @@ class SubscriptionController extends Controller
     /**
      * Creates a new Subscription model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
@@ -96,7 +97,7 @@ class SubscriptionController extends Controller
      * Updates an existing Subscription model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -116,7 +117,7 @@ class SubscriptionController extends Controller
      * Deletes an existing Subscription model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)

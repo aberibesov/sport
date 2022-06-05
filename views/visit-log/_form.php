@@ -14,14 +14,6 @@ use kartik\datetime\DateTimePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'client_id', [
-        'addon' => [
-            'append' => [
-                'content' => Html::a(Html::icon('plus'), ['/clients'], ['class' => 'btn btn-success category-create']),
-                'asButton' => true
-            ]
-        ]])->dropDownList(Clients::getList(), ['prompt' => 'Выберите клиента']) ?>
-
     <?= $form->field($model, 'sale_id', [
         'addon' => [
             'append' => [
