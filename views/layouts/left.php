@@ -22,7 +22,7 @@
                             ['label' => 'Тип абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-type']],
                             ['label' => 'Статус абонемента', 'icon' => 'circle-o', 'url' => ['/subscription-status']],
                             ['label' => 'Список услуг', 'icon' => 'circle-o', 'url' => ['/services']],
-                            ['label' => 'Должности', 'icon' => 'circle-o', 'url' => '/position'],
+                            ['label' => 'Должности', 'icon' => 'circle-o', 'url' => ['/position']],
                             ['label' => 'Абонементы', 'icon' => 'file-code-o', 'url' => ['/subscription']]
                         ]
                     ],
