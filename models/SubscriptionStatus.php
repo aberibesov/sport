@@ -15,6 +15,10 @@ use yii\db\ActiveRecord;
  */
 class SubscriptionStatus extends ActiveRecord
 {
+    const STATUS_ACTIVE = 2;
+    const STATUS_OVERDUE = 3;
+    const STATUS_LIMIT_VISIT = 4;
+
     /**
      * {@inheritdoc}
      */

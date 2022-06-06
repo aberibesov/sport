@@ -2,12 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\Sales;
+use DateTime;
+use DateInterval;
 use yii\web\Response;
+use app\models\Sales;
 use yii\web\Controller;
 use app\models\VisitLog;
 use yii\filters\VerbFilter;
+use app\models\Subscription;
 use yii\filters\AccessControl;
+use app\models\SubscriptionType;
+use app\models\SubscriptionStatus;
 use yii\web\NotFoundHttpException;
 use app\models\search\VisitLog as VisitLogSearch;
 
@@ -83,12 +88,44 @@ class VisitLogController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->client_id = Sales::findOne($model->sale_id)->client_id;
-
-                if ($model->save()) {
-                    return $this->redirect(['view', 'id' => $model->id]);
+                $sale = Sales::findOne($model->sale_id);
+                if ($sale === null) {
+                    throw new NotFoundHttpException('Продажа не найдена');
+                }
+                if ($sale->status_id === SubscriptionStatus::STATUS_ACTIVE) {
+                    $subscribe = Subscription::findOne($sale->subscription_id);
+                    //на кол-во посещений
+                    if ($subscribe->type_id === SubscriptionType::TYPE_BY_VISITS) {
+                        $countVisits = VisitLog::find()->where(['sale_id' => $model->sale_id])->count();
+                        if ($countVisits > $subscribe->number_of_visits) {
+                            $sale->status_id = SubscriptionStatus::STATUS_OVERDUE;
+                            $sale->save();
+                            $model->addError('sale_id', 'Посещения исчерпаны');
+                        }
+                    } else {
+                        //проверка по времени
+                        $dateIntervalString = 'P';
+                        if ($subscribe->mount_amount) {
+                            $dateIntervalString .= $subscribe->mount_amount . 'M';
+                        }
+                        if ($subscribe->day_amount) {
+                            $dateIntervalString .= $subscribe->day_amount . 'D';
+                        }
+                        $dateEnd = (new DateTime($sale->date))->add(new DateInterval($dateIntervalString));
+                        if ((new DateTime()) > $dateEnd) {
+                            $sale->status_id = SubscriptionStatus::STATUS_OVERDUE;
+                            $sale->save();
+                            $model->addError('sale_id', 'Абонемент просрочен');
+                        }
+                    }
                 } else {
-                    $model->addError('sale_id', $model->getFirstError());
+                    $model->addError('sale_id', 'Абонемент неактивен');
+                }
+
+                $model->client_id = $sale->client_id;
+
+                if (!$model->hasErrors() && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
             }
         } else {

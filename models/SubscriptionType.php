@@ -15,6 +15,8 @@ use yii\db\ActiveRecord;
  */
 class SubscriptionType extends ActiveRecord
 {
+    const TYPE_BY_VISITS = 1;
+
     /**
      * {@inheritdoc}
      */

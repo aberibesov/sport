@@ -2,12 +2,14 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Sales;
-use app\models\search\Sales as SalesSearch;
-use yii\filters\AccessControl;
+use yii\web\Response;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
+use app\models\search\Sales as SalesSearch;
 
 /**
  * SalesController implements the CRUD actions for Sales model.
@@ -73,11 +75,12 @@ class SalesController extends Controller
     /**
      * Creates a new Sales model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return string|Response
      */
     public function actionCreate()
     {
         $model = new Sales();
+        $model->client_id = Yii::$app->request->get('client_id');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -96,7 +99,7 @@ class SalesController extends Controller
      * Updates an existing Sales model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return string|Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
@@ -116,7 +119,7 @@ class SalesController extends Controller
      * Deletes an existing Sales model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return Response
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)

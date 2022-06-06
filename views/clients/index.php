@@ -1,6 +1,6 @@
 <?php
 
-use yii\helpers\Html;
+use yii\bootstrap\Html;
 use app\models\Clients;
 use kartik\grid\GridView;
 use yii\grid\ActionColumn;
@@ -47,6 +47,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'phone',
+            [
+                'label' => '',
+                'format' => 'raw',
+                'value' => static function ($model) {
+                    return Html::a('Продать', ['sales/create', 'client_id' => $model->id], ['class' => 'btn btn-success']);
+                }
+            ],
             [
                 'class' => ActionColumn::class
             ],
